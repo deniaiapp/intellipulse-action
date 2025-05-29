@@ -1,8 +1,10 @@
 # action.yml
 name: 'Intellipulse Action'
+author: 'Deni AI'
 description: 'Collaborate, Ask, Edit and Summarize GitHub Issues with Intellipulse'
-icon: "link"
-color: "blue"
+branding:
+  icon: "pulse"
+  color: "blue"
 inputs:
   intellipulse-action-key:
     description: 'Action key for Intellipulse. You can find it in your Deni AI account settings.'
