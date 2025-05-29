@@ -3,7 +3,7 @@ name: "Intellipulse Action"
 author: "Deni AI"
 description: "Collaborate, Ask, Edit and Summarize GitHub Issues with Intellipulse"
 branding:
-  icon: "pulse"
+  icon: "code"
   color: "blue"
 inputs:
   intellipulse-action-key:
