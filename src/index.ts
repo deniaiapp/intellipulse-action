@@ -7,7 +7,7 @@ import axios from 'axios';
 async function run() {
   try {
     // 1. Get inputs from the GitHub Action workflow
-    const intellipulseApiKey = core.getInput('intellipulse-api-key', { required: true });
+    const intellipulseApiKey = core.getInput('intellipulse-action-key', { required: true });
     const issueBody = core.getInput('issue-body', { required: true });
     const issueNumber = parseInt(core.getInput('issue-number', { required: true }), 10);
 
