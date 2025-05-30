@@ -10,6 +10,10 @@ on:
 
 jobs:
   test:
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
     runs-on: ubuntu-latest
     # Only run on issues and issue comments, not on PRs to avoid unnecessary runs
     if: github.event_name == 'issues' || github.event_name == 'issue_comment'
