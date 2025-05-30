@@ -25,4 +25,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check output
-        run: echo 'Intellipulse summary: ${{ steps.intellipulse_action.outputs.summary }}'
+        run: "echo 'Intellipulse summary: ${{ steps.intellipulse_action.outputs.summary }}'"
