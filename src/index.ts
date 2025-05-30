@@ -6,10 +6,18 @@ import axios from 'axios';
 
 async function run() {
   try {
-    // 1. Get inputs from the GitHub Action workflow
-    const intellipulseApiKey = core.getInput('intellipulse-action-key', { required: true });
-    const issueBody = core.getInput('issue-body', { required: true });
-    const issueNumber = parseInt(core.getInput('issue-number', { required: true }), 10);
+    // 1. Get inputs from environment variables (set by the composite action)
+    const intellipulseApiKey = process.env.INTELLIPULSE_ACTION_KEY;
+    const issueBody = process.env.ISSUE_BODY || github.context.payload.issue?.body || '';
+    const issueNumber = github.context.payload.issue?.number || 0;
+
+    if (!intellipulseApiKey) {
+      throw new Error('INTELLIPULSE_ACTION_KEY environment variable is required');
+    }
+
+    if (!issueBody) {
+      throw new Error('Issue body is required but not found in context');
+    }
 
     const intellipulseApiUrl = "https://canary.deniai.app/api/intellipulse/action";
 
@@ -46,10 +54,13 @@ async function run() {
 
     // 4. Add a comment to the GitHub Issue
     // Ensure issueNumber is valid before attempting to comment
-    if (issueNumber > 0) {
-      core.info(`Adding comment to issue #${issueNumber}...`);
-      // github-token is automatically provided by GitHub Actions runner, but explicitly passed as input
-      const octokit = github.getOctokit(core.getInput('github-token', { required: false }) || process.env.GITHUB_TOKEN || '');
+    if (issueNumber > 0) {      core.info(`Adding comment to issue #${issueNumber}...`);
+      // Use the GitHub token from environment variable set by the composite action
+      const githubToken = process.env.GITHUB_TOKEN;
+      if (!githubToken) {
+        throw new Error('GITHUB_TOKEN environment variable is required');
+      }
+      const octokit = github.getOctokit(githubToken);
       const { owner, repo } = github.context.repo;
 
       const commentBody = `🤖 Response from Intellipulse:\n\n${intellipulseResponseContent}`;

@@ -1,28 +1,26 @@
-name: Test Intellipulse Action
+# Example workflow for using Intellipulse Action
+# Copy this file to your repository's .github/workflows/ directory
+
+name: Intellipulse AI Response
 
 on:
   issues:
     types: [opened, edited]
   issue_comment:
     types: [created]
-  pull_request:
-    types: [opened, edited]
 
 jobs:
-  test:
+  intellipulse-response:
     runs-on: ubuntu-latest
-    # Only run on issues and issue comments, not on PRs to avoid unnecessary runs
+    # Only respond to issues and issue comments
     if: github.event_name == 'issues' || github.event_name == 'issue_comment'
+    
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-
+        
       - name: Run Intellipulse Action
-        id: intellipulse_action
-        uses: ./
+        uses: your-username/intellipulse-action@main  # Replace with your repository
         with:
           intellipulse-action-key: ${{ secrets.INTELLIPULSE_ACTION_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check output
-        run: echo 'Intellipulse summary: ${{ steps.intellipulse_action.outputs.summary }}'

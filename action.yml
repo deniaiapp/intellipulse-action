@@ -12,6 +12,7 @@ inputs:
   github-token:
     description: "GitHub token for authentication."
     required: true
+    default: ${{ github.token }}
 outputs:
   summary:
     description: "The summarized content from Intellipulse."
