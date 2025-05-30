@@ -1,0 +1,20 @@
+name: Test My Action
+
+on: [pull_request, issue_comment, issues]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Intellipulse Action
+        id: my_action
+        uses: ./
+        with:
+          intellipulse-action-key: ${{ secrets.INTELLIPULSE_ACTION_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check output
+        run: echo "${{ steps.my_action.outputs.result }}"
