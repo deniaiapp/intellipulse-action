@@ -39,4 +39,4 @@ runs:
       shell: bash
       env:
         INTELLIPULSE_ACTION_KEY: ${{ inputs.intellipulse-action-key }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
